@@ -29,7 +29,7 @@ contract WBGZToken is ERC20, ERC20Burnable, Ownable, Pausable {
         address initialOwner,
         uint8 decimalsValue,
         uint256 initialSupply
-    ) ERC20(unicode"完璧归赵", unicode"完璧归赵") Ownable(initialOwner) {
+    ) ERC20(unicode"完璧", unicode"完璧") Ownable(initialOwner) {
         require(initialOwner != address(0), "Invalid owner");
         require(decimalsValue <= 18, "Decimals too high");
         require(initialSupply != 0, "Initial supply must be positive");
