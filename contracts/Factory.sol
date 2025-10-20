@@ -9,7 +9,7 @@ import "@openzeppelin/contracts/utils/Pausable.sol";
 import "@openzeppelin/contracts/interfaces/IERC2981.sol";
 
 /**
- * @title NFT 合约（增强版）
+ * @title NFT 合约（版）
  * @notice 使用 OpenZeppelin 的安全 ERC721 实现，支持批量铸造、销毁、暂停、版税
  * @dev 保持原有业务行为不变，仅进行风格与可读性重构；移除 SafeMath（Solidity 0.8+ 原生溢出检查）
  */
