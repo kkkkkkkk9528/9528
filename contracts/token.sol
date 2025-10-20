@@ -4,7 +4,7 @@ pragma solidity 0.8.20;
 import "@openzeppelin/contracts/token/ERC20/ERC20.sol";
 import "@openzeppelin/contracts/token/ERC20/extensions/ERC20Permit.sol";
 import "@openzeppelin/contracts/token/ERC20/extensions/ERC20Burnable.sol";
-import "@openzeppelin/contracts/access/Ownable2Step.sol";
+import "@openzeppelin/contracts/access/Ownable.sol";
 
 /**
  * @title BEP20 代币合约（塞翁马版）
@@ -12,7 +12,7 @@ import "@openzeppelin/contracts/access/Ownable2Step.sol";
  * @dev 基于 OZ v5 的 ERC20、ERC20Permit、ERC20Burnable 与 Ownable2Step。
  * @author project team
  */
-contract BEP20Token is ERC20, ERC20Permit, ERC20Burnable, Ownable2Step {
+contract BEP20Token is ERC20, ERC20Permit, ERC20Burnable, Ownable {
   // ===========
   // Errors
   // ===========
@@ -63,7 +63,7 @@ contract BEP20Token is ERC20, ERC20Permit, ERC20Burnable, Ownable2Step {
    string memory _symbol,
    uint256 _initialSupply,
    uint8 decimals_
- ) ERC20(_name, _symbol) ERC20Permit(_name) Ownable(msg.sender) payable {
+ ) ERC20(_name, _symbol) ERC20Permit(_name) Ownable(msg.sender) {
    if (bytes(_name).length == 0) revert ErrorNameEmpty();
    if (bytes(_symbol).length == 0) revert ErrorSymbolEmpty();
    if (msg.sender == address(0)) revert ErrorZeroInitialOwner();

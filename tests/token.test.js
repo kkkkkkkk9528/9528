@@ -1,5 +1,6 @@
-const { expect } = require("chai");
-const { ethers } = require("hardhat");
+import { expect } from "chai";
+import hardhat from "hardhat";
+const { ethers } = hardhat;
 
 describe("BEP20Token", function () {
   let token;
@@ -52,7 +53,7 @@ describe("BEP20Token", function () {
 
       await expect(
         token.connect(addr1).transfer(owner.address, 1)
-      ).to.be.revertedWith("ERC20: transfer amount exceeds balance");
+      ).to.be.revertedWithCustomError(token, "ERC20InsufficientBalance");
 
       expect(await token.balanceOf(owner.address)).to.equal(
         initialOwnerBalance
@@ -66,7 +67,7 @@ describe("BEP20Token", function () {
       await token.transfer(addr2.address, 50);
 
       const finalOwnerBalance = await token.balanceOf(owner.address);
-      expect(finalOwnerBalance).to.equal(initialOwnerBalance - 150);
+      expect(finalOwnerBalance).to.equal(initialOwnerBalance - 150n);
 
       const addr1Balance = await token.balanceOf(addr1.address);
       expect(addr1Balance).to.equal(100);
@@ -120,7 +121,7 @@ describe("BEP20Token", function () {
     });
 
     it("Should fail if not owner", async function () {
-      await expect(token.connect(addr1).mint(addr2.address, 100)).to.be.revertedWith("Ownable: caller is not the owner");
+      await expect(token.connect(addr1).mint(addr2.address, 100)).to.be.revertedWithCustomError(token, "OwnableUnauthorizedAccount");
     });
 
     it("Should fail if mint to zero address", async function () {

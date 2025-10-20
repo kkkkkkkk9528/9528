@@ -241,6 +241,19 @@ contract NFT is ERC721, ERC721URIStorage, ERC721Burnable, Ownable, Pausable {
     return super.tokenURI(tokenId);
   }
 
+  // v5: use _update hook for pause checks; do not override _burn
+  function _update(address to, uint256 tokenId, address auth)
+    internal
+    virtual
+    override(ERC721)
+    returns (address from)
+  {
+    require(!paused(), "Pausable: paused");
+    return super._update(to, tokenId, auth);
+  }
+
+
+
   /**
    * @notice 检查接口支持
    * @param interfaceId 接口 ID
