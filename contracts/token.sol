@@ -7,7 +7,7 @@ import "@openzeppelin/contracts/token/ERC20/extensions/ERC20Burnable.sol";
 import "@openzeppelin/contracts/access/Ownable.sol";
 
 /**
- * @title BEP20 Token Contract
+ * @title BEP20 Token Contract (塞翁马版)
  * @notice Secure ERC20 implementation with batch transfers and ownership management
  * @dev Based on OZ v5: ERC20, ERC20Permit, ERC20Burnable, Ownable
  */
@@ -15,7 +15,6 @@ contract BEP20Token is ERC20, ERC20Permit, ERC20Burnable, Ownable {
   // ==========
   // Errors
   // ==========
-
   error ErrorArraysLengthMismatch();
   error ErrorEmptyArrays();
   error ErrorTooManyRecipients();
@@ -29,18 +28,12 @@ contract BEP20Token is ERC20, ERC20Permit, ERC20Burnable, Ownable {
   // ==========
   // Constants
   // ==========
-
   uint256 internal constant MAX_BATCH_RECIPIENTS = 1000;
 
   // ==========
   // Events
   // ==========
-
-  event BatchTransfer(
-    address indexed from,
-    uint256 totalAmount,
-    uint256 recipientCount
-  );
+  event BatchTransfer(address indexed from, uint256 totalAmount, uint256 recipientCount);
   event Mint(address indexed to, uint256 amount);
   event Burn(address indexed from, uint256 amount);
   event OwnershipRenounced(address indexed previousOwner);
@@ -48,14 +41,12 @@ contract BEP20Token is ERC20, ERC20Permit, ERC20Burnable, Ownable {
   // ==========
   // Storage
   // ==========
-
   /// @notice Token decimals
   uint8 private immutable _decimals;
 
   // ==========
   // Constructor
   // ==========
-
   /**
    * @notice Initialize token and set owner
    * @param _name Token name
@@ -82,7 +73,6 @@ contract BEP20Token is ERC20, ERC20Permit, ERC20Burnable, Ownable {
   // ==========
   // Views
   // ==========
-
   /**
    * @notice Get token decimals
    * @return Decimals count
