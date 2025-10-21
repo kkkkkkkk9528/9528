@@ -62,8 +62,9 @@ node scripts/vanity44444-fixed.js \
 
 ### 3. Factory 合约
 
-**当前活跃合约**: `0x7ED19ebB8a16708E0ea10C74588F4747e234E459`
-**历史合约**: `0x0C605B4C0442e9aE5c3C65d4dadEac76246aA751`, `0x74b0d3cBc5e8a8183eC293705bcF558F8bd44033`
+**当前活跃合约**: `0xBE3Fe1852a06Aa70D8C1A7B548b8667AB31E5232`
+**历史合约**: 
+`0x0C605B4C0442e9aE5c3C65d4dadEac76246aA751`, `0x74b0d3cBc5e8a8183eC293705bcF558F8bd44033`, `0x7ED19ebB8a16708E0ea10C74588F4747e234E459`
 
 关键函数：
 - `computeInitCodeHash()`: 计算并返回 init code hash
@@ -123,6 +124,24 @@ node scripts/vanity44444-fixed.js \
 - Salt: `0x8db1952d63ec207a571f83380294b68a0d2704f078b6cbc5ed9a52d4c4530508`
 - 搜索时间: 9.50秒
 - 尝试次数: 10,767
+
+**链上验证**: Factory 合约确认地址计算正确
+
+### 案例 4: 当前工厂合约 (0xBE3Fe1852a06Aa70D8C1A7B548b8667AB31E5232)
+
+**目标**: 生成以 `44444` 结尾的地址
+
+**参数**:
+- 名称: "马"
+- 符号: "马"
+- 供应量: 1,000,000
+- 小数位: 18
+
+**结果**:
+- 地址: `0x3c45fbec3653f45318c54ecd64b89bc608e44444`
+- Salt: `0x04995506cb7a4a5189a1dbcf59faaeab3c377a654037e615763872a71f566dc2`
+- 搜索时间: 11.07秒
+- 尝试次数: 14,464
 
 **链上验证**: Factory 合约确认地址计算正确
 

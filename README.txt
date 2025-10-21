@@ -1,28 +1,86 @@
-REMIX DEFAULT WORKSPACE
+# CREATE2 Token Factory Project
 
-Remix default workspace is present when:
-i. Remix loads for the very first time 
-ii. A new workspace is created with 'Default' template
-iii. There are no files existing in the File Explorer
+A secure and efficient token deployment system using CREATE2 for deterministic addresses.
 
-This workspace contains 3 directories:
+## Project Structure
 
-1. 'contracts': Holds three contracts with increasing levels of complexity.
-2. 'scripts': Contains four typescript files to deploy a contract. It is explained below.
-3. 'tests': Contains one Solidity test file for 'Ballot' contract & one JS test file for 'Storage' contract.
+### contracts/
+- `Factory.sol` - CREATE2 factory contract for deterministic token deployment
+- `token.sol` - BEP20 token implementation with batch transfers and ownership management
 
-SCRIPTS
+### scripts/
+- `exactFactoryLogic.js` - Local factory logic verification
+- `vanity44444-fixed.js` - Vanity address generator for tokens ending with '44444'
 
-The 'scripts' folder has four typescript files which help to deploy the 'Storage' contract using 'web3.js' and 'ethers.js' libraries.
+### tests/
+- `factory.test.js` - Comprehensive factory contract tests
+- `token.test.js` - Token contract functionality tests
 
-For the deployment of any other contract, just update the contract name from 'Storage' to the desired contract and provide constructor arguments accordingly 
-in the file `deploy_with_ethers.ts` or  `deploy_with_web3.ts`
+## Key Features
 
-In the 'tests' folder there is a script containing Mocha-Chai unit tests for 'Storage' contract.
+### Factory Contract
+- **Deterministic Deployment**: Uses CREATE2 for predictable token addresses
+- **Access Control**: Only factory owner can deploy tokens
+- **Automatic Ownership Transfer**: Deployed tokens immediately transfer ownership to deployer
+- **Address Computation**: Helper functions for offline address calculation
 
-To run a script, right click on file name in the file explorer and click 'Run'. Remember, Solidity file must already be compiled.
-Output from script will appear in remix terminal.
+### Token Contract
+- **Standard ERC20**: Full ERC20 compliance with extensions
+- **Batch Transfers**: Support up to 1000 recipients in single transaction
+- **Owner Minting**: Owner-only token minting capability
+- **Security**: Comprehensive input validation and error handling
 
-Please note, require/import is supported in a limited manner for Remix supported modules.
-For now, modules supported by Remix are ethers, web3, swarmgw, chai, multihashes, remix and hardhat only for hardhat.ethers object/plugin.
-For unsupported modules, an error like this will be thrown: '<module_name> module require is not supported by Remix IDE' will be shown.
+## Usage
+
+### Deploy Factory
+```bash
+npx hardhat run scripts/deploy.js --network <network>
+```
+
+### Deploy Token via Factory
+```javascript
+const factory = await ethers.getContractAt("Factory", factoryAddress);
+await factory.deployToken(salt, name, symbol, supply, decimals);
+```
+
+### Batch Transfer Tokens
+```javascript
+await token.batchTransfer(recipients, amounts);
+```
+
+## Development
+
+### Prerequisites
+- Node.js >= 16
+- Hardhat
+
+### Setup
+```bash
+npm install
+```
+
+### Compile
+```bash
+npx hardhat compile
+```
+
+### Test
+```bash
+npx hardhat test
+```
+
+### Deploy
+```bash
+npx hardhat run scripts/deploy.js --network <network>
+```
+
+## Security Considerations
+
+- Factory contract owner has full control over token deployment
+- Deployed tokens automatically transfer ownership to deployer
+- All contracts use OpenZeppelin battle-tested implementations
+- Comprehensive test coverage ensures reliability
+
+## License
+
+MIT
